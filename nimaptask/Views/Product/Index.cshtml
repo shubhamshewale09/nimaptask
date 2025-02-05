@@ -1,65 +1,47 @@
-﻿@model List<nimaptask.Models.Product>
+﻿@model IEnumerable<nimaptask.Models.Product>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8" />
     <title>Product List</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container mt-5">
         <h2>Product List</h2>
-        <a href="/Product/Create" class="btn btn-primary mb-3">Add New Product</a>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
+                    <th>ProductId</th>
+                    <th>ProductName</th>
+                    <th>CategoryId</th> <!-- Display CategoryId -->
+                    <th>CategoryName</th> <!-- Display CategoryName -->
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var product in Model)
                 {
                     <tr>
-                        <td>@item.ProductId</td>
-                        <td>@item.ProductName</td>
-                        <td>@item.Category.CategoryName</td>
+                        <td>@product.ProductId</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.CategoryId</td> <!-- Display CategoryId -->
+                        <td>@product.Category.CategoryName</td> <!-- Display CategoryName -->
                         <td>
-                            <a href="/Product/Edit/@item.ProductId" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="/Product/Delete/@item.ProductId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("Delete", "Product", new { id = product.ProductId })" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
 
-        <!-- Pagination Controls -->
-        <ul class="pagination">
-            @if (ViewBag.CurrentPage > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", "Product", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
-                </li>
-            }
+        <a href="@Url.Action("Create", "Product")" class="btn btn-success">Add  Product </a>
 
-            @for (int i = 1; i <= ViewBag.TotalPages; i++)
-            {
-                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", "Product", new { page = i })">@i</a>
-                </li>
-            }
-
-            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-            {
-                <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", "Product", new { page = ViewBag.CurrentPage + 1 })">Next</a>
-                </li>
-            }
-        </ul>
-
-        <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+        <!-- Back Button -->
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-3">Back to Home</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
