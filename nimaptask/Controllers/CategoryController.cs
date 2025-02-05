@@ -78,14 +78,7 @@ namespace nimaptask.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-
-
-
-
-
-        // Delete a category
+         // Delete a category
         public ActionResult Delete(int id)
         {
             var category = db.Categories.Find(id);
