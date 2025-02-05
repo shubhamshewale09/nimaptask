@@ -1,0 +1,55 @@
+﻿@model nimaptask.Models.Product
+@using nimaptask.Models
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Product</title>
+    <style>
+        form {
+            width: 50%;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: green;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Product</h2>
+    <form method="post">
+        <input type="hidden" name="ProductId" value="@Model.ProductId">
+
+        <label>Product Name:</label>
+        <input type="text" name="ProductName" value="@Model.ProductName" required>
+
+        <label>Category:</label>
+        <select name="CategoryId">
+            @foreach (var category in ViewBag.Categories as List<Category>)
+            {
+                <option value="@category.CategoryId" @(Model.CategoryId == category.CategoryId ? "selected" : "")>@category.CategoryName</option>
+            }
+        </select>
+
+        <button type="submit">Update</button>
+    </form>
+    <br>
+    <a href="/Product/Index">Back to List</a>
+</body>
+</html>

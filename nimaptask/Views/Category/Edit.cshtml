@@ -1,0 +1,36 @@
+﻿@model nimaptask.Models.Category
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Category</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Edit Category</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                <label for="CategoryName">Category Name</label>
+                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CategoryName)
+            </div>
+
+         
+            @Html.HiddenFor(model => model.CategoryId)
+
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        }
+
+        <br>
+        <a href="/Category/Index" class="btn btn-secondary mt-3">Back to Category List</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
