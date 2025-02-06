@@ -9,17 +9,17 @@ namespace nimaptask.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private const int pageSize = 10;
 
-        // Show all products
+        
         public ActionResult Index(int page = 1)
         {
-            // Calculate the skip value for pagination
+            
             var products = db.Products.Include("Category")
                                       .OrderBy(p => p.ProductId)  
-                                      .Skip((page - 1) * pageSize)  // Skip products based on the page number
-                                      .Take(pageSize)  // Take only 10 products for the page
+                                      .Skip((page - 1) * pageSize)  
+                                      .Take(pageSize)  
                                       .ToList();
 
-            // Get total number of products to calculate total pages
+         
             int totalProducts = db.Products.Count();
             int totalPages = (int)System.Math.Ceiling((double)totalProducts / pageSize);
 
@@ -30,14 +30,14 @@ namespace nimaptask.Controllers
         }
 
 
-        // Show form to add a new product
+   
         public ActionResult Create()
         {
             ViewBag.Categories = db.Categories.ToList();
             return View();
         }
 
-        // Add a new product
+     
         [HttpPost]
         public ActionResult Create(Product product)
         {
@@ -51,7 +51,6 @@ namespace nimaptask.Controllers
             return View(product);
         }
 
-        // Show form to edit a product
         public ActionResult Edit(int id)
         {
             var product = db.Products.Find(id);
@@ -63,7 +62,7 @@ namespace nimaptask.Controllers
             return View(product);
         }
 
-        // Update product
+      
         [HttpPost]
         public ActionResult Edit(Product product)
         {
@@ -87,7 +86,7 @@ namespace nimaptask.Controllers
             return RedirectToAction("Index");
         }
 
-        // Delete a product
+     
         public ActionResult Delete(int id)
         {
             var product = db.Products.Find(id);

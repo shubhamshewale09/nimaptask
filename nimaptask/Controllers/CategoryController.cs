@@ -11,20 +11,20 @@ namespace nimaptask.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // Show all categories
+       
         public ActionResult Index()
         {
             var categories = db.Categories.ToList();
             return View(categories);
         }
 
-        // Show form to add a new category
+     
         public ActionResult Create()
         {
             return View();
         }
 
-        // Add a new category
+        
         [HttpPost]
         public ActionResult Create(Category category)
         {
@@ -37,7 +37,7 @@ namespace nimaptask.Controllers
             return View(category);
         }
 
-        // Show form to edit a category
+      
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -54,7 +54,7 @@ namespace nimaptask.Controllers
             return View(category);
         }
 
-        // Update category
+       
         [HttpPost]
         public ActionResult Edit(Category category)
         {
@@ -78,7 +78,7 @@ namespace nimaptask.Controllers
             return RedirectToAction("Index");
         }
 
-         // Delete a category
+    
         public ActionResult Delete(int id)
         {
             var category = db.Categories.Find(id);
